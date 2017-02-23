@@ -23,6 +23,11 @@ object HazelcastTest {
       instance.getConfig.addMapConfig(new MapConfig()
          .setName(key)
          .setTimeToLiveSeconds(ttl)
+         .setBackupCount(1)
+         .setAsyncBackupCount(1)
+         .setInMemoryFormat(InMemoryFormat.BINARY)
+         .setMaxSizeConfig(new MaxSizeConfig(1, MaxSizePolicy.USED_HEAP_SIZE))
+         .setEvictionPolicy(EvictionPolicy.LRU)
       )
    }
    def putValue(cacheKey: String, key: String, value: String) : Unit = {
